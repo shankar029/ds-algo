@@ -10,7 +10,6 @@ package com.shankark.ds;
 public class StackEmptyException extends Exception {
 
 	private static final long serialVersionUID = -4019979919369898226L;
-	private String message;
 
 	public StackEmptyException(String message) {
 		super(message);

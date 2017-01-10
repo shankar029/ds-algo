@@ -7,11 +7,11 @@ import com.shankark.ds.StackEmptyException;
 
 import junit.framework.Assert;
 
-public class ArrayStackTest {
+public class ArrayBasedStackTest {
 
 	@Test
 	public void testSanity() throws Exception {
-		Stack s = new ArrayStack();
+		Stack s = new ArrayBasedStack();
 		Assert.assertTrue("Stack is not empty", s.isEmpty());
 		s.push("First");
 		Assert.assertFalse("Stack is not empty", s.isEmpty());
@@ -30,7 +30,7 @@ public class ArrayStackTest {
 
 	@Test
 	public void testValidateLIFO() throws Exception {
-		Stack s = new ArrayStack();
+		Stack s = new ArrayBasedStack();
 		s.push("First");
 		s.push("Second");
 		s.push("Third");
@@ -68,19 +68,19 @@ public class ArrayStackTest {
 
 	@Test(expected = StackEmptyException.class)
 	public void testStackEmptyForPop() throws Exception {
-		Stack s = new ArrayStack();
+		Stack s = new ArrayBasedStack();
 		s.pop();
 	}
 
 	@Test(expected = StackEmptyException.class)
 	public void testStackEmptyForTop() throws Exception {
-		Stack s = new ArrayStack();
+		Stack s = new ArrayBasedStack();
 		s.top();
 	}
 
 	@Test
 	public void testStackOverflow() throws Exception {
-		Stack s = new ArrayStack(5);
+		Stack s = new ArrayBasedStack(5);
 		s.push("a");
 		s.push("b");
 		s.push("c");

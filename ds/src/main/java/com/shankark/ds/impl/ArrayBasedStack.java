@@ -12,17 +12,17 @@ import com.shankark.ds.StackEmptyException;
  * @author shankarkumar
  *
  */
-public class ArrayStack implements Stack {
+public class ArrayBasedStack implements Stack {
 	private static final int DEFAULT_INITIAL_SIZE = 1024;
 	private int size = 0;
 	private Object[] a;
 	private int top = -1;
 
-	public ArrayStack() {
+	public ArrayBasedStack() {
 		this(DEFAULT_INITIAL_SIZE);
 	}
 
-	public ArrayStack(int initialSize) {
+	public ArrayBasedStack(int initialSize) {
 		this.size = initialSize;
 		this.a = new Object[size];
 	}
@@ -39,7 +39,10 @@ public class ArrayStack implements Stack {
 		if (top == -1) {
 			throw new StackEmptyException("Stack is empty");
 		}
-		return a[top--];
+		Object o = a[top];
+		a[top] = null;
+		top--;
+		return o;
 	}
 
 	public Object top() throws StackEmptyException {
