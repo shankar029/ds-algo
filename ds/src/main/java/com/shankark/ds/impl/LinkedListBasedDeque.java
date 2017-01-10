@@ -50,14 +50,16 @@ public class LinkedListBasedDeque implements Deque {
 		if (n == size) {
 			throw new QueueFullException("Queue is full");
 		}
-		// new node's prev points to head and next points to first node
-		Node node = new Node(o, head, head.next);
-		if (head.next != null) { // if queue is not empty
-			// first node's (head.next) prev points to new node
-			head.next.prev = node;
+		Node node = new Node(o, head, null);
+		if (isEmpty()) {
+			head.next = node;
+			tail.prev = node;
+			node.next = tail;
+		} else {
+			node.next = head.next;
+			head.next = node;
+			node.next.prev = node;
 		}
-		// head's next point to new node
-		head.next = node;
 		n++;
 	}
 
@@ -65,26 +67,56 @@ public class LinkedListBasedDeque implements Deque {
 		if (n == size) {
 			throw new QueueFullException("Queue is full");
 		}
-		// New node's prev points to last node (i.e, tail's prev) and next
-		// points to tail
-		Node node = new Node(o, tail.prev, tail);
-		if (tail.prev != null) { // if queue is not empty
-			// last node's (i.e, tail.prev) next points to new node
-			tail.prev.next = node;
-		}
-		// tail's prev points to new node
-		tail.prev = node;
 
+		Node node = new Node(o, null, tail);
+		if (isEmpty()) {
+			head.next = node;
+			tail.prev = node;
+			node.prev = head;
+		} else {
+			node.prev = tail.prev;
+			node.prev.next = node;
+			tail.prev = node;
+		}
+		n++;
 	}
 
 	public Object removeFirst() throws QueueEmptyException {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			throw new QueueEmptyException("Queue is empty");
+		}
+
+		Node first = head.next;
+		if (size == 1) {
+			head.next = null;
+			tail.prev = null;
+		} else {
+			head.next = first.next;
+			first.next.prev = head;
+		}
+		first.next = null; // GC
+		first.prev = null; // GC
+		n--;
+		return first.data;
 	}
 
 	public Object removeLast() throws QueueEmptyException {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			throw new QueueEmptyException("Queue is empty");
+		}
+
+		Node last = tail.prev;
+		if (size == 1) {
+			head.next = null;
+			tail.prev = null;
+		} else {
+			tail.prev = last.prev;
+			last.prev.next = tail;
+		}
+		last.next = null; // GC
+		last.prev = null; // GC
+		n--;
+		return last.data;
 	}
 
 	public Object first() throws QueueEmptyException {
