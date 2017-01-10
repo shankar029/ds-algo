@@ -27,7 +27,7 @@ public class ArrayBasedQueue implements Queue {
 	}
 
 	public void enqueue(Object o) throws QueueFullException {
-		if (a.length == (n - 1)) {
+		if (a.length == n) {
 			throw new QueueFullException("Queue is full");
 		}
 		a[r] = o;
@@ -40,6 +40,7 @@ public class ArrayBasedQueue implements Queue {
 			throw new QueueEmptyException("Queue is empty");
 		}
 		Object o = a[f];
+		a[f] = null;
 		n--;
 		f = (f + 1) % a.length;
 		return o;
@@ -57,7 +58,7 @@ public class ArrayBasedQueue implements Queue {
 	}
 
 	public boolean isEmpty() {
-		return (f == r);
+		return (n == 0);
 	}
 
 }
