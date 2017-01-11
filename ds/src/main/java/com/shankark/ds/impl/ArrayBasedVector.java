@@ -2,6 +2,7 @@ package com.shankark.ds.impl;
 
 import java.util.Arrays;
 
+import com.shankark.ds.BoundaryViolationException;
 import com.shankark.ds.Vector;
 
 /**
@@ -26,15 +27,33 @@ public class ArrayBasedVector implements Vector {
 		this.a = new Object[size];
 	}
 
-	public Object elementAtRank(int rank) {
+	/**
+	 * Time complexity: Worst case : O(1)
+	 */
+	public Object elementAtRank(int rank) throws BoundaryViolationException {
+		checkForBoundaryCondition(rank);
+
 		return a[rank];
 	}
 
-	public void replaceAtRank(int rank, Object e) {
+	/**
+	 * Time complexity: Worst case : O(1)
+	 */
+	public void replaceAtRank(int rank, Object e) throws BoundaryViolationException {
+		checkForBoundaryCondition(rank);
+
 		a[rank] = e;
 	}
 
-	public void insertAtRank(int rank, Object e) {
+	/**
+	 * Time complexity: Worst case : O(n)
+	 * <p>
+	 * In worst case, all the elements may have to shift right.
+	 * </p>
+	 */
+	public void insertAtRank(int rank, Object e) throws BoundaryViolationException {
+		checkForBoundaryCondition(rank);
+
 		if (size >= n) {
 			increaseCapacity(size * 2);
 		}
@@ -48,7 +67,15 @@ public class ArrayBasedVector implements Vector {
 		++n;
 	}
 
-	public void removeAtRank(int rank) {
+	/**
+	 * Time complexity: Worst case : O(n)
+	 * <p>
+	 * In worst case, all the elements may have to shift left.
+	 * </p>
+	 */
+	public void removeAtRank(int rank) throws BoundaryViolationException {
+		checkForBoundaryCondition(rank);
+
 		// move all the element to left by one position from rank
 		for (int i = rank; i < n; i++) {
 			a[i] = a[i + 1];
@@ -70,6 +97,12 @@ public class ArrayBasedVector implements Vector {
 	}
 
 	// --------- private methods ----------------
+	private void checkForBoundaryCondition(int rank) throws BoundaryViolationException {
+		if (rank < 0 || rank > size()) {
+			throw new BoundaryViolationException("Rank [" + rank + "] is out of the vector boundary");
+		}
+	}
+
 	private void increaseCapacity(int newSize) {
 		Object[] t = new Object[newSize];
 		copy(a, t);

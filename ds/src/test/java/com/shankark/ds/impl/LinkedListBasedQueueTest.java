@@ -2,7 +2,7 @@ package com.shankark.ds.impl;
 
 import com.shankark.ds.Queue;
 
-public class LinkedListBasedTest extends BaseQueueTest {
+public class LinkedListBasedQueueTest extends BaseQueueTest {
 
 	@Override
 	protected Queue createQueue() {
