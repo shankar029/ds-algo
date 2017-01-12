@@ -14,6 +14,15 @@ package com.shankark.search;
  */
 public class LinearSearch {
 
+	/**
+	 * Searches for the element e in array a linearly.
+	 * 
+	 * @param a
+	 *            Integer search array
+	 * @param e
+	 *            Element to be searched
+	 * @return Index of element e in array if found otherwise -1
+	 */
 	public int search(int[] a, int e) {
 		if (a == null || a.length == 0) {
 			throw new IllegalArgumentException("Search array is null or empty");

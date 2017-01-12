@@ -1,7 +1,7 @@
 package com.shankark.search;
 
 /**
- * Binary search algorithm implementation. Searches for a element in a
+ * Binary search algorithm implementation. Searches for an element in
  * ordered/sorted array.
  * <p>
  * Time complexity: Worst case - O(log n) <br/>
@@ -17,7 +17,7 @@ public class BinarySearch {
 	}
 
 	/**
-	 * Returns the index of the value e in the sorted array elements.
+	 * Returns index of the element e in the sorted array elements.
 	 * 
 	 * @param elements
 	 *            A sorted integer array
@@ -28,7 +28,7 @@ public class BinarySearch {
 	 */
 	public int search(int[] elements, int e) {
 		if (elements == null || elements.length == 0) {
-			throw new IllegalArgumentException("Array elements is NULL or doesn't contains value");
+			throw new IllegalArgumentException("Array is null or empty");
 		}
 		return search(elements, e, 0, elements.length - 1);
 	}
