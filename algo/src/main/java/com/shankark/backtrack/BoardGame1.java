@@ -3,6 +3,12 @@ package com.shankark.backtrack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Board game.
+ * 
+ * @author shankarkumar
+ *
+ */
 public class BoardGame1 {
 
 	public List<Move> solve(int coinsPerColor) {
@@ -36,7 +42,7 @@ public class BoardGame1 {
 		return board;
 	}
 
-	public boolean solve(int n, int coinsPerColor, char[] board, List<Move> solution, int k) {
+	private boolean solve(int n, int coinsPerColor, char[] board, List<Move> solution, int k) {
 		if (isSolved(n, coinsPerColor, board)) {
 			return true;
 		} else {
@@ -48,7 +54,7 @@ public class BoardGame1 {
 						// if in the last position
 						continue;
 					} else if (board[i + 1] == '0') {
-						// if next position is empty or
+						// if next position is empty
 						nextAvailableMoves.add(new Move(board[i], i, i + 1));
 					} else if ((((i + 2) < n) && (board[i + 1] == 'W') && (board[i + 2]) == '0')) {
 						// if next position contains opposite coin and next to
@@ -60,7 +66,7 @@ public class BoardGame1 {
 						// if in the first position
 						continue;
 					} else if (board[i - 1] == '0') {
-						// if previous position is empty or
+						// if previous position is empty
 						nextAvailableMoves.add(new Move(board[i], i, i - 1));
 					} else if ((((i - 2) >= 0) && (board[i - 1] == 'B') && (board[i - 2]) == '0')) {
 						// if previous position contains opposite coin and next
@@ -105,35 +111,6 @@ public class BoardGame1 {
 		public String toString() {
 			return "Move " + color + ":" + from + "->" + to;
 		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + color;
-			result = prime * result + from;
-			result = prime * result + to;
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Move other = (Move) obj;
-			if (color != other.color)
-				return false;
-			if (from != other.from)
-				return false;
-			if (to != other.to)
-				return false;
-			return true;
-		}
-
 	}
 
 	public void printBoard(char[] board, List<Move> moves) {
